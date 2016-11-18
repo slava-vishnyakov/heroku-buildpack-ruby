@@ -1,0 +1,33 @@
+#!/usr/bin/env ruby
+
+# sync output
+$stdout.sync = true
+
+$:.unshift File.expand_path("../../lib", __FILE__)
+require "language_pack"
+require "language_pack/shell_helpers"
+require "language_pack/test"
+
+include LanguagePack::ShellHelpers
+
+def execute_test(command)
+  pipe(command, :user_env => true)
+  exit $?.exitcode
+end
+
+# bin/test BUILD_DIR ENV_DIR ARTIFACT_DIR
+build_dir, env_dir, artifact_dir = ARGV
+LanguagePack::ShellHelpers.initalize_env(env_dir)
+bundler = LanguagePack::Helpers::BundlerWrapper.new
+
+if bundler.has_gem?("rspec-core")
+  if File.exist?("#{build_dir}/bin/rspec")
+    execute_test("bin/rspec")
+  else
+    execute_test("bundle exec rspec")
+  end
+elsif File.exist?("#{build_dir}/bin/rails test")
+  execute_test("bin/rails test")
+else
+  execute_test("bin/rake test")
+end
