@@ -27,7 +27,7 @@ if bundler.has_gem?("rspec-core")
     execute_test("bundle exec rspec")
   end
 elsif File.exist?("#{build_dir}/bin/rails test")
-  execute_test("bin/rails test")
+  execute_test("bin/rails")
 else
   execute_test("bin/rake test")
 end
