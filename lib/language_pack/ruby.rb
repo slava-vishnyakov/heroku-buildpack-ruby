@@ -627,9 +627,9 @@ WARNING
           puts "<ls>"
           puts run("apt-get update")
           puts run("apt-get install -y libsqlite3-dev")
-          puts run("ls -la /usr/lib/libsqlite3*")
+          puts run("ls -la /usr/lib/x86_64-linux-gnu/libsqlite3*")
           puts "</ls>"
-          #run("ln -s /usr/lib/libsqlite3.so.0.8.6 #{yaml_lib}/libsqlite3.so")                        # for sqlite3   make symbolic link
+          run("ln -s /usr/lib/x86_64-linux-gnu/libsqlite3.so.0.8.6 #{yaml_lib}/libsqlite3.so")                        # for sqlite3   make symbolic link
           run("cp #{File.expand_path( "../../vendor/sqlite3.h", $PROGRAM_NAME )} #{yaml_include}")   # for sqlite3   prepare sqlite3.h
 
           puts "Running: #{bundle_command}"
