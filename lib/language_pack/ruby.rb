@@ -597,7 +597,7 @@ WARNING
           bundle_command += " --deployment"
         end
 
-        topic("Installing dependencies using bundler #{bundler.version}")
+        topic("Installing dependencies using bundler (with sqlite3) #{bundler.version}")
         load_bundler_cache
 
         bundler_output = ""
